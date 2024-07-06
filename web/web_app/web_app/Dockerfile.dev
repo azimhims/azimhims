@@ -1,0 +1,37 @@
+FROM python:3.12
+
+# Set the working directory
+WORKDIR /app
+#--------------------------------------------
+# RUN apt-get update && apt-get install -y \
+#     protobuf-compiler
+#----------------------------------------------
+# Copy the necessary files
+COPY pyproject.toml poetry.lock ./
+
+# Install Poetry
+RUN pip install --default-timeout=100 --retries=5 poetry
+#RUN pip kafka-python==2.0.2
+# Install the dependencies
+RUN poetry lock --no-update 
+RUN poetry install --no-root
+
+#RUN poetry install --no-root
+
+# Copy the rest of the backend application
+COPY . WEB_APP/web_app 
+#/app/web_app
+#--------------------------------------------------------
+#RUN protoc --python_out=. web_app/protobuf/user_signup.proto
+#RUN protoc --proto_path=/WEB_APP/web_app/protobuf --python_out=/WEB_APP/web_app/protobuf/user_signup.proto
+
+COPY static ./static 
+#  for kong services
+#--------------------------------------------------------
+# Expose the FastAPI port
+EXPOSE 8000
+
+# Run the FastAPI app with Uvicorn
+#CMD ["poetry", "run", "uvicorn", "web_app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "uvicorn", "web_app.main:app", "--host", "0.0.0.0", "--port", "8000"] 
+#port change from 8000 to 8008 

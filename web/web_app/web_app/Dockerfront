@@ -1,0 +1,25 @@
+
+FROM python:3.12
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the necessary files
+COPY pyproject.toml poetry.lock ./
+
+# Install Poetry
+
+RUN pip install poetry
+
+# Install the dependencies
+RUN poetry install --no-root
+
+# Copy the rest of the application
+COPY streamlit_app.py ./
+
+# Expose the Streamlit port
+EXPOSE 8000
+
+# Run the Streamlit app
+CMD ["poetry", "run", "streamlit","run", "streamlit_app.py", "--server.port=8000", "--server.address=0.0.0.0"]
+
