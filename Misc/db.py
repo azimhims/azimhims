@@ -15,9 +15,9 @@ engine = create_engine("postgresql://testdb_owner:Gxf49mATunVW@ep-shy-cake-a1jkj
 SQLModel.metadata.create_all(engine)
 
 with Session(engine) as session:
-    session.add(dt1)
+    #session.add(dt1)
     session.add(dt2)
-    session.commit()
+    #session.commit()
     
 with Session(engine) as read:
     query = select(dating)

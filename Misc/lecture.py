@@ -17,7 +17,7 @@ class lecture(SQLModel, table=True):
         teacher: str
 
 lect1 = lecture(subject= 'OOPS', teacher='junaid')
-lect2 = lecture(subject="ML", techer='qasim')
+lect2 = lecture(subject="ML", teacher='qasim')
 
 DATABAE_URL = "postgresql://testdb_owner:Gxf49mATunVW@ep-shy-cake-a1jkjuiw.ap-southeast-1.aws.neon.tech/testdb?sslmode=require"
 engine = create_engine(DATABAE_URL)
@@ -26,7 +26,6 @@ SQLModel.metadata.create_all(engine) #table creating
 
 
 with Session(engine) as session:
-        session.add(lect1)
+        session.add(lect2)
         session.commit()
         session.close()
-        
