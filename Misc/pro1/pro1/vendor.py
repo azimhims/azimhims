@@ -44,10 +44,17 @@ def insert_record():
         # # print(ufone)
         # print(zong)
         
-        query = select(Vendor, Vendor_type).join(Vendor_type).where(Vendor_type.desc=='Services').offset(1).limit(1)
-        result = session.exec(query).all()
+        
+        #query = select(Vendor,Vendor_type).where(Vendor.ven_type==Vendor_type.id)
+        # query = select(Vendor,Vendor_type).where(Vendor.ven_type == Vendor_type.id)
+        # result = session.exec(query).all()
+        # print(result)
+        
+        #pandas head(5) its mean top 5 record, same limit(5)
+        query1 = select (Vendor, Vendor_type).join(Vendor_type).where(Vendor_type.desc=='Services').offset(1).limit(1)
+        result = session.exec(query1).all()
         print(result)
-
+        
         
 
 
@@ -66,3 +73,11 @@ def main():
 
 if __name__=="__main__":
     main()
+
+
+
+
+
+    # query = select(Vendor, Vendor_type).join(Vendor_type).where(Vendor_type.desc=='Services').offset(1).limit(1)
+        # result = session.exec(query).all()
+        # print(result)
